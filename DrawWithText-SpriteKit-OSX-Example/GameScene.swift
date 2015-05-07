@@ -11,18 +11,48 @@ import SpriteKit
 class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
-        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-        myLabel.text = "Hello, World!";
-        myLabel.fontSize = 65;
-        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
-        
-        self.addChild(myLabel)
+        self.backgroundColor = SKColor.blackColor()
     }
     
     override func mouseDown(theEvent: NSEvent) {
         /* Called when a mouse click occurs */
+        touchToMakeText("i", location: theEvent.locationInNode(self))
         
-        let location = theEvent.locationInNode(self)
+        
+    }
+    
+    override func   mouseDragged(theEvent: NSEvent) {
+        touchToMakeText("i", location: theEvent.locationInNode(self))
+    }
+    
+    override func update(currentTime: CFTimeInterval) {
+        
+        /* Called before each frame is rendered */
+    }
+    
+    
+    func touchToMakeText(passedString:String, location: CGPoint){
+        
+        let myLabel = SKLabelNode(fontNamed:"")
+        myLabel.text = passedString;
+        myLabel.fontSize = 65;
+        myLabel.position = location;
+        
+        let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
+        myLabel.runAction(SKAction.repeatActionForever(action))
+        
+        
+        self.addChild(myLabel)
+        
+        
+    }
+    
+    
+    
+    func touchToMakeImageAtlocation(location: CGPoint){
+        
+        
+        let location = location
         
         let sprite = SKSpriteNode(imageNamed:"Spaceship")
         sprite.position = location;
@@ -32,9 +62,9 @@ class GameScene: SKScene {
         sprite.runAction(SKAction.repeatActionForever(action))
         
         self.addChild(sprite)
+        
+        
+        
     }
     
-    override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
-    }
 }
